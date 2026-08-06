@@ -33,7 +33,14 @@ const useForm = (type: keyof typeof types) => {
         setValue(target.value);
     }
 
-    return { value, setValue, error, onChange, onBlur: () => {validate(value)}, validate };
+    return {
+        value,
+        setValue,
+        error,
+        onChange,
+        onBlur: () => {validate(value)},
+        validate: () => validate(value)
+    };
 }
 
 export default useForm;
