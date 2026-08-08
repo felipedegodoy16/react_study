@@ -1,0 +1,37 @@
+Iremos utilizar o BrowserRouter, Routes e Route 
+
+- npm install react-router-dom
+
+- BrowserRouter é utilizado para envolver o app em todos os lugares que forem precisar de um gerenciamento das rotas, geralmente é utilizado no App mesmo envolvendo a aplicação inteira
+
+- Routes envolve as rotas (Route), é utilizado para envolver as rotas que serão dinâmicas, ou seja, um componente Header não estará dentro de Routes, pois, esse componente geralmente não muda, ele é fixo e o que irá mudar são os componentes entre esse Header e geralmente um Footer também
+
+- Route, usado para gerenciar a rota específica e indicar qual o componente que será renderizado dependendo da rota em que o site estiver. Exemplo: <Route path='caminho_da_url' element={<ElementoRenderizado />} /> - sempre passar ao final uma rota em que o path será '*', isso indica que qualquer outro caminho que não se encaixar nos caminhos anteriores entrarão aqui, geralmente é a página 404
+
+A partir desse momento não utilizamos mais a tag <a>, essa tag faz com que a página seja recarregada novamente e o intuito de utilizar o react é prevenir isso para que a aplicação fique reativa, sendo assim, iremos utilizar o componente Link e NavLink disponibilizado pelo react-router-dom
+
+- <Link></Link> - utilizado para criar um link para uma nova página, importante colocar a propriedade 'to' para indicar qual o caminho que levará essa URL. Exemplo: <Link to='/'>Home</Link>
+
+- <NavLink></NavLink> - serve para a mesma coisa, a única mudança será que esse já irá trazer automaticamente que o link está ativo, dessa forma, quando o link estiver ativo automaticamente ele coloca a classe 'active' no elemento para indicar isso, sendo assim, fica mais fácil realizarmos estilos para indicar que o mesmo está ativo e deixar visível para o usuário, é possivel realizar essa estilização apenas colocando também a propriedade activeStyle e passando o css. Exemplo: <NavLink to='/' activeStyle={color: 'tomato'}>Home</NavLink> - importante ressaltar também que o NavLink acaba se confundindo as vezes também, por exemplo, no caso de um link de uma home em que o 'to' é '/' ele pode se confundir falando que o '/' está ativo sendo que na verdade o que está ativo é o '/sobre', por isso, é interessante colocar a propriedade 'end' nesse componente para demonstrar que é o final do caminho que deve ser '/'
+
+- Temos também um hook que é bem utilizado que podemos utilizar para quando quisermos navegar para alguma página após alguma ação. Hook useNavigate, é bem simples de utilizar, basta criar uma constante com useNavigate e utilizar como se fosse uma função para passar o caminho. 
+Exemplo:
+
+const navigate = useNavigate();
+
+navigate('/sobre');
+
+- useParams() - é um Hook que é utilizado para pegar os parâmetros passados na URL, por exemplo, se tivermos uma rota que temos o path='produto/:id' conseguiremos através desse hook capturar o parâmetro 'id' que for passado na URL, importante lembrar que se tentar acessar apenas o caminho '/produto' ele não encontrará, pois, ele pede um parâmetro ali alé da URL
+
+- useLocation() - também é um hook que teremos acesso a diferentes informações da URL como o pathname, search (parâmetros de pesquisas que são passados, geralmente aqueles que vem depois da ?)
+
+- é possível criarmos rotas aninhadas também, sendo assim, conseguimos colocar caminhos de outras rotas dentro de outros componentes e usar o Routes e Route normalmente, a única diferença é que não precisamos colocar o BrowserRouter, para isso precisamos colocar na rota inicial indicando que podemos ter outras rotas dentro daquela, assim podemos colocar da seguinte maneira:
+<Route path='produto/*' element={<Produto />}> - isso indica que podemos ter mais rotas saindo de produto
+- é possível também usar de uma maneira diferente, podemos colocar as rotas aninhadas no arquivo de rotas e usar o componente <Outlet /> para indicar no componente onde utilizaremos aquelas rotas, onde deve ser renderizado o elemento e nesse caso não precisamos colocar o path com o /*, o react entende que tem rotas aninhadas naquela rota
+
+- quando usamos o router podemos criar um componente para sempre alterar o title da nossa página, pois, com o react não navegamos para outra página que terá atualizado as novas informações, o que teremos é só a mudança de elementos dentro da página, para isso é legal criar um componente para alterar o title e a description da página ou utilizar um plugin que foi criado que se chama react-helmet
+- para usar basta instalar e em cada página que quiser utilizar importamos o Helmet, importante ressaltar que as coisas que tiverem dentro desse Helmet servem apenas para aquela página específica. Exemplo:
+<Helmet>
+  <title>Dogs | Home</title>
+  <meta name='description' content='Descrição da Home'>
+</Helmet>
