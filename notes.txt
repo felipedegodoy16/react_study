@@ -1,0 +1,5 @@
+Lazy e Suspense
+- usado para não carregar tudo de uma página, não buildar tudo junto, é bom utilizar apenas em componentes que irão precisar de alguma biblioteca muito grande e você não quer buidar essa biblioteca junto com todas as outras, pois, se você builda e utiliza em um único componente quando esse componente não estiver sendo utilizado ele vai pesar mesmo assim no seu app por ter que carregar essa biblioteca junto
+
+Memo
+- usado para fazer com que um componente filho não fique re renderizando toda vez que o elemento pai atualizar, muitas vezes o elemento filho não irá atualizar apenas o elemento pai, dessa forma você acaba gastando processamento tendo que renderizar novamente um elemento filho sendo que o mesmo podia fica estático na página e o que renderizaria seria apenas onde realmente atualizou
